@@ -1,0 +1,33 @@
+<h1>Scribbles</h1>
+
+<table>
+  <tr>
+    <th>Filters</th>
+    <th>Streaming</th>
+    <th>Actions</th>
+  </tr>
+
+<% @scribbles.each do |scribble| %>
+  <tr>
+    <td><%= scribble.filters %></td>
+    <td>
+      <% form_for(scribble, :action => :put, :url => scribble_path(scribble.id)) do |f| %>
+        <%= f.hidden_field :streaming, :value => !scribble.streaming %>
+        <%= f.submit(scribble.streaming ? 'Stop' : 'Start') %>
+      <% end %>
+    </td>
+    <td>
+      <% if scribble.streaming %>
+        <span><%= link_to 'Follow', scribble %></span>
+      <% else %>
+        <span><%= link_to 'Edit', edit_scribble_path(scribble) %></span>
+      <% end %>
+      | <span><%= link_to 'Delete', scribble, :confirm => 'Are you sure?', :method => :delete %></span>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Scribble', new_scribble_path %>

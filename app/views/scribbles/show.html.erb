@@ -1,0 +1,11 @@
+<script src="http://js.pusherapp.com/1.9/pusher.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  var pusher = new Pusher('<%= Pusher.key %>');
+  channel = pusher.subscribe('<%= PUSHER_CHANNEL %>');
+  channel.bind('<%= @scribble.id %>', function(data) {
+    window.console.log(data);
+  });
+</script>
+
+<%= link_to 'Edit', edit_scribble_path(@scribble) %> |
+<%= link_to 'Back', scribbles_path %>

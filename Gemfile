@@ -7,9 +7,17 @@ gem 'jquery-rails'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+#gem 'twitter-stream', '~> 0.1.14'
+gem 'twitter-stream', :branch => 'oauthfix',
+                      :git => 'git://github.com/infospace/twitter-stream.git'
+gem 'oa-oauth'
+gem 'pusher'
+gem 'em-http-request', '~> 1.0.0'
+#gem 'delayed_job', '~> 2.1.4'
+gem 'web-app-theme', '~> 0.7.0'
 
-# Use unicorn as the web server
-# gem 'unicorn'
+# Use thin as the web server
+gem 'thin', :platform => 'ruby'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -29,4 +37,6 @@ gem 'sqlite3'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'heroku'
+  gem 'foreman'
+  gem 'rspec-rails'
 end

@@ -62,7 +62,14 @@ class ScribblesController < ApplicationController
 
     respond_to do |format|
       if @scribble.update_attributes(params[:scribble])
-        format.html { redirect_to(scribbles_path, :notice => 'Scribble was successfully updated.') }
+        format.html {
+          if to_boolean(params[:scribble][:streaming])
+            path = scribble_path(@scribble)
+          else
+            path = scribbles_path
+          end
+          redirect_to(path, :notice => 'Scribble was successfully updated.')
+        }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -89,5 +96,9 @@ class ScribblesController < ApplicationController
       flash[:notice] = 'Please sign in first'
       redirect_to root_path
     end
-  end    
+  end
+
+  def to_boolean(value)
+    ActiveRecord::ConnectionAdapters::Column.value_to_boolean(value)
+  end
 end

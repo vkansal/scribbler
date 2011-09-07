@@ -14,7 +14,6 @@ gem 'oa-oauth'
 gem 'pusher'
 gem 'em-http-request', '~> 1.0.0'
 #gem 'delayed_job', '~> 2.1.4'
-gem 'web-app-theme', '~> 0.7.0'
 
 # Use thin as the web server
 gem 'thin', :platform => 'ruby'
@@ -41,4 +40,5 @@ group :development, :test do
   gem 'foreman'
   gem 'rspec-rails'
   gem 'sqlite3'
+  gem 'web-app-theme', '~> 0.7.0'
 end

@@ -37,6 +37,7 @@ gem 'thin', :platform => 'ruby'
 # and rake tasks are available in development mode:
 group :development, :test do
   gem 'heroku'
+  gem 'heroku-rails'
   gem 'foreman'
   gem 'rspec-rails'
 end

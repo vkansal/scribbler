@@ -6,7 +6,7 @@ gem 'jquery-rails'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+gem 'pg', :group => :production
 #gem 'twitter-stream', '~> 0.1.14'
 gem 'twitter-stream', :branch => 'oauthfix',
                       :git => 'git://github.com/infospace/twitter-stream.git'
@@ -40,4 +40,5 @@ group :development, :test do
   gem 'heroku-rails'
   gem 'foreman'
   gem 'rspec-rails'
+  gem 'sqlite3'
 end

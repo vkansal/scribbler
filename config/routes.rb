@@ -6,5 +6,5 @@ Scribbler::Application.routes.draw do
 
   resources :scribbles
 
-  root :to => 'sessions#index'
+  root :to => 'scribbles#index'
 end

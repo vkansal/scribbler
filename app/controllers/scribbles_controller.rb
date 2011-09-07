@@ -1,5 +1,5 @@
 class ScribblesController < ApplicationController
-  before_filter :authorize
+  #before_filter :authorize
 
   # GET /scribbles
   # GET /scribbles.xml
@@ -46,7 +46,7 @@ class ScribblesController < ApplicationController
 
     respond_to do |format|
       if @scribble.save
-        format.html { redirect_to(@scribble, :notice => 'Scribble was successfully created.') }
+        format.html { redirect_to(scribbles_path, :notice => 'Scribble was successfully created.') }
         format.xml  { render :xml => @scribble, :status => :created, :location => @scribble }
       else
         format.html { render :action => "new" }

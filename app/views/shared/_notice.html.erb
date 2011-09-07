@@ -1,8 +1,0 @@
-<% flash.each do |key, msg| %>
-  <% next if msg.blank? %>
-  <div id="<%= key %>">
-    <p style="float:right"><%= link_to_function 'X', "$('\##{key}').hide(500)" %></p>
-    <p><%= msg %></p>
-    <div class="clear"></div>
-  </div>
-<% end %>

@@ -3,3 +3,5 @@
 
 en:
   hello: "Hello world"
+  web-app-theme:
+    show: "Follow"

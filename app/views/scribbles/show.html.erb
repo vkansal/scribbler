@@ -3,9 +3,56 @@
   var pusher = new Pusher('<%= Pusher.key %>');
   channel = pusher.subscribe('<%= PUSHER_CHANNEL %>');
   channel.bind('<%= @scribble.id %>', function(data) {
-    window.console.log(data);
+    //window.console.log(data);
+    var elem = $('<li style="display:none"/>');
+    elem.append('<div class="left"><img class="avatar" src="'
+      + data.user.profile_image_url + '"></div>');
+    elem.append('<div class="item"><p>' + data.text + '</p></div>');
+    elem.append('<div class="clear"></div>');
+    $('#streamlist').prepend(elem);
+    elem.fadeIn();
   });
 </script>
 
-<%= link_to 'Edit', edit_scribble_path(@scribble) %> |
-<%= link_to 'Back', scribbles_path %>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", scribbles_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_scribble_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", scribble_path %></li>
+    </ul>
+  </div>          
+  <div class="content">
+    <h2 class="title">Scribbling</h2>
+    <div class="inner">
+
+      <p>
+      <ul class="list" id="streamlist">
+      </ul>
+      </p>
+
+      <% if false %>      
+        <p>
+          <b><%= t("activerecord.attributes.scribble.streaming", :default => t("activerecord.labels.streaming", :default => "Streaming")) %>:</b>
+          <%= @scribble.streaming %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.scribble.filters", :default => t("activerecord.labels.filters", :default => "Filters")) %>:</b>
+          <%= @scribble.filters %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.scribble.params", :default => t("activerecord.labels.params", :default => "Params")) %>:</b>
+          <%= @scribble.params %>
+        </p>
+      <div class="wat-cf">
+        <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_scribble_path(@scribble), :class => "button" %> 
+        <%= link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), scribble_path(@scribble), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </div>      
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

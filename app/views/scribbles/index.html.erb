@@ -1,33 +1,54 @@
-<h1>Scribbles</h1>
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first active"><%= link_to "#{t("web-app-theme.list", :default => "List")}", scribbles_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_scribble_path %></li>
+    </ul>
+  </div>          
+  <div class="content">          
+    <h2 class="title"><%= t("web-app-theme.all", :default => "All")  %> Scribbles</h2>
+    <div class="inner">
+      <table class="table">
+        <tr>             
+          <th class="first">Filters</th>
+                    <th>
+            <%= t("activerecord.attributes.scribble.streaming", :default => t("activerecord.labels.streaming", :default => "Streaming")) %>
+          </th>
+                    <th><%= t("web-app-theme.created_at", :default => "Created at")  %></th>
+          <th class="last">&nbsp;</th>
+        </tr>
+        <% @scribbles.each do |scribble| -%>
+        <tr class="<%= cycle("odd", "even") %>">
+          <td>
+            <%= scribble.filter_str %>
+          </td>
+          <td>
+            <% form_for(scribble, :action => :put, :url => scribble_path(scribble)) do |f| %>
+              <%= f.hidden_field :streaming, :value => !scribble.streaming %>
+              <%= f.submit(scribble.streaming ? 'Stop' : 'Start') %>
+            <% end %>
+          </td>
+                    <td>
+            <%= scribble.created_at %>
+          </td>
+          <td class="last">
+            <% if scribble.streaming %>
+              <%= link_to "#{t("web-app-theme.show", :default => "Show")}", scribble_path(scribble) %>
+            <% else %>
+              <%= link_to "#{t("web-app-theme.edit", :default => "Edit")}", edit_scribble_path(scribble) %> |
+              <%= link_to "#{t("web-app-theme.delete", :default => "Delete")}", scribble_path(scribble), :method => :delete, :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+            <% end %>
+          </td>
+        </tr>          
+        <% end -%>
+      </table>
+      <div class="actions-bar wat-cf">
+        <div class="actions">
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-<table>
-  <tr>
-    <th>Filters</th>
-    <th>Streaming</th>
-    <th>Actions</th>
-  </tr>
-
-<% @scribbles.each do |scribble| %>
-  <tr>
-    <td><%= scribble.filters %></td>
-    <td>
-      <% form_for(scribble, :action => :put, :url => scribble_path(scribble.id)) do |f| %>
-        <%= f.hidden_field :streaming, :value => !scribble.streaming %>
-        <%= f.submit(scribble.streaming ? 'Stop' : 'Start') %>
-      <% end %>
-    </td>
-    <td>
-      <% if scribble.streaming %>
-        <span><%= link_to 'Follow', scribble %></span>
-      <% else %>
-        <span><%= link_to 'Edit', edit_scribble_path(scribble) %></span>
-      <% end %>
-      | <span><%= link_to 'Delete', scribble, :confirm => 'Are you sure?', :method => :delete %></span>
-    </td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Scribble', new_scribble_path %>
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

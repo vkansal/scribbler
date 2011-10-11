@@ -36,7 +36,8 @@ class Scribble < ActiveRecord::Base
       #:filter => self.filters,
       :filters => self.filters,
       :oauth => oauth,
-      :method => 'POST'
+      :method => 'POST',
+      :ssl => true
       #:params => self.params,
     )
   end

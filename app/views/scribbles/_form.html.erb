@@ -1,6 +1,11 @@
   <div class="group">
     <%= f.label :filters, t("activerecord.attributes.scribble.filters", :default => "Filters"), :class => :label %>
     <%= f.text_field :filter_str, :class => 'text_field' %>
+    <%= f.label :filters, 'Enable Translation', :class => :label %>
+    <%= f.check_box :enable_translate %>
+    <%= f.label :filters, 'Select Language', :class => :label %>
+    <%= f.text_field :select_language, :class => 'text_field' %>
+
     <span class="description">Comma-separated list of filters</span>
   </div>
 

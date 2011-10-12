@@ -19,6 +19,14 @@ task :stream => :environment do
           stream = scribble.create_stream
           stream.each_item do |tweet|
             #p tweet[0..20]
+            if scribble.enable_translate
+
+              t = Microsoft::Translate.new(MS_APPID)
+              tweets=ActiveSupport::JSON.decode(tweet)
+
+              tweets['text']+=  "<br></br>"+ t.translate(tweets['text'], {:to => scribble.select_language, :from => :en})
+              tweet=tweets.to_json
+            end
             Pusher[PUSHER_CHANNEL].trigger_async(scribble.id, tweet)
           end
           stream.on_error do |e|
